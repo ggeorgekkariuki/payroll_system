@@ -27,9 +27,13 @@ def create_tables():
 def hello_world():
     return render_template('index.html')
 
-@app.route('/name')
-def name():
-    return 'Keith'
+@app.route('/new_department', methods=['POST'])
+def new_department():
+    pass
+
+@app.route('/new_employee', methods=['POST'])
+def new_employee():
+    pass
 
 # Run flask app
 # if __name__ == '__main__':
