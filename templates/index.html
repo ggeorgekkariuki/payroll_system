@@ -1,28 +1,83 @@
 {% extends 'layout.html' %}
 {% block body %}
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
+    <!-- Button trigger modal for New Department -->
+    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newDepartment">
+        Add New Department
+    </button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+    <!-- Button trigger modal For New Employee -->
+    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newEmployee">
+        Add New Employee
+    </button>
+
+
+    <!-- Modal for New Department -->
+    <div class="modal fade" id="newDepartment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Department</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Department Name</label>
+                            <input type="text" class="form-control mb-2" id="departmentName" placeholder="Name"
+                                   required>
+
+                            <input type="Submit" class="form-control btn btn-primary" id="submit">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+
+    <!-- Modal For New Employee -->
+    <div class="modal fade" id="newEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Employee Name</label>
+                            <input type="text" class="form-control mb-2" id="departmentName" placeholder="Name"
+                                   required>
+                            <label for="formGroupExampleInput">KRA Pin</label>
+                            <input type="text" class="form-control mb-2" id="kraPin" placeholder="KRA Pin" required>
+                            <label for="formGroupExampleInput">National ID.</label>
+                            <input type="text" class="form-control mb-2" id="idNo" placeholder="ID No." required>
+                            <label for="formGroupExampleInput">Email</label>
+                            <input type="email" class="form-control mb-2" id="email" placeholder="e-mail" required>
+                            <label for="formGroupExampleInput">Basic Salary</label>
+                            <input type="number" class="form-control mb-2" id="basicSalary" placeholder="Basic Salary"
+                                   required>
+                            <label for="formGroupExampleInput">Benefits</label>
+                            <input type="number" class="form-control mb-2" id="benefits" placeholder="Benefits" required>
+                            <label for="department">Department</label>
+                            <select id="department" class="form-control mb-2" required>
+                                <option selected>Choose Department...</option>
+                                <option>...</option>
+                            </select>
+
+                            <input type="Submit" class="form-control btn btn-primary" id="submit">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 {% endblock %}
