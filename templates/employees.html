@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <div class="container">
+        <!-- Button trigger modal For New Employee -->
+        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newEmployee">
+            Add New Employee
+        </button>
+
+        <!-- Modal For New Employee -->
+        <div class="modal fade" id="newEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Employee</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/add_employee" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="formGroupExampleInput">Employee Name</label>
+                                <input type="text" class="form-control mb-2" name="name" id="departmentName"
+                                       placeholder="Name"
+                                       required>
+                                <label for="formGroupExampleInput">Gender</label>
+                                <select name="gender" id="gender" class="form-control" required>
+                                    <option value="na">Not applicable</option>
+                                    <option value="m">Male</option>
+                                    <option value="f">Female</option>
+                                </select>
+                                <label for="formGroupExampleInput">KRA Pin</label>
+                                <input type="text" class="form-control mb-2" name="kra_pin" id="kraPin"
+                                       placeholder="KRA Pin" required>
+                                <label for="formGroupExampleInput">National ID.</label>
+                                <input type="text" class="form-control mb-2" name="national_id" id="idNo"
+                                       placeholder="ID No." required>
+                                <label for="formGroupExampleInput">Email</label>
+                                <input type="email" class="form-control mb-2" name="email" id="email"
+                                       placeholder="e-mail" required>
+                                <label for="formGroupExampleInput">Basic Salary</label>
+                                <input type="number" class="form-control mb-2" name="basic_salary" id="basicSalary"
+                                       placeholder="Basic Salary"
+                                       required>
+                                <label for="formGroupExampleInput">Benefits</label>
+                                <input type="number" class="form-control mb-2" name="benefits" id="benefits"
+                                       placeholder="Benefits"
+                                       required>
+                                <label for="department">Department</label>
+                                <select name="department" id="department" class="form-control mb-2" required>
+                                    {% for department in departments %}
+                                        <option value="{{ department.id }}">{{ department.name }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <input type="Submit" class="form-control btn btn-primary" id="submit">
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

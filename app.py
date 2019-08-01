@@ -1,5 +1,5 @@
 # importing Flask class
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from config import Development, Testing
 
@@ -17,6 +17,7 @@ db = SQLAlchemy(app)
 from models.Departments import DepartmentModel
 from models.Employees import EmployeeModel
 
+# TODO: read about flask-migrate
 @app.before_first_request
 def create_tables():
     db.create_all()
@@ -24,12 +25,37 @@ def create_tables():
 # registering a route / routing
 @app.route('/')
 # function to run when clients visit this route
-def hello_world():
-    return render_template('index.html')
+def index():
+    departments = DepartmentModel.fetch_all()
+    return render_template('index.html', departments=departments)
+
+@app.route('/employees/<int:dept_id>')
+def employees(dept_id):
+    departments = DepartmentModel.fetch_all()
+    employee_name = request.form['name']
+    gender = request.form['gender']
+    kra_pin = request.form['kra_pin']
+    national_id = request.form['national_id']
+    email = request.form['email']
+    basic_salary = request.form['basic_salary']
+    benefits = request.form['benefits']
+    dept_id = request.form['department']
+    return render_template('employees.html', departments=departments)
+
 
 @app.route('/new_department', methods=['POST'])
 def new_department():
-    pass
+    department_name =  request.form['department']
+    if DepartmentModel.fetch_by_name(department_name):
+        # read more on bootstrap alerts with flash
+        flash('Department ' + department_name + ', already exists', 'danger')
+        return redirect(url_for('index'))
+    department =DepartmentModel(name=department_name)
+    department.insert_to_db()
+    flash('Department ' + department_name + ' has been added', 'success')
+
+    return redirect(url_for('index'))
+
 
 @app.route('/new_employee', methods=['POST'])
 def new_employee():

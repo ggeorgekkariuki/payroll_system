@@ -1,5 +1,6 @@
 class Config:
     SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:kitgiana@127.0.0.1:5432/july_payroll'  # dbtype://user:password@host:port/dab_name
+    SECRET_KEY = 'kmkldcc898f7cnck09fmiackm09'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ENVIRONMENT = 'Development'
     DEBUG = True
