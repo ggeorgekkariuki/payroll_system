@@ -20,3 +20,15 @@ class EmployeeModel(db.Model):
     def insert_to_db(self): #create
         db.session.add(self)
         db.session.commit()
+
+    @classmethod
+    def fetch_by_mail(cls, email):
+        return cls.query.filter_by(email=email).first()
+
+    @classmethod
+    def fetch_all(cls):
+        return cls.query.all()
+
+    @classmethod
+    def fetch_by_department(cls, dept_id):
+        return cls.query.filter_by(department_id=dept_id)

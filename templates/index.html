@@ -28,8 +28,7 @@
                             <div class="form-group">
                                 <label for="formGroupExampleInput">Department Name</label>
                                 <input type="text" class="form-control mb-2" name="department" id="department"
-                                       placeholder="Name"
-                                       required>
+                                       placeholder="Name" required>
                             </div>
                             <div class="form-group">
                                 <input type="Submit" class="form-control btn btn-primary">
@@ -53,28 +52,29 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="/add_employee" method="POST" enctype="multipart/form-data">
+                        <form action="/new_employee" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="formGroupExampleInput">Employee Name</label>
-                                <input type="text" class="form-control mb-2" id="departmentName" placeholder="Name"
+                                <input type="text" class="form-control mb-2" name="name" id="departmentName" placeholder="Name"
                                        required>
+                                <label for="formGroupExampleInput">Gender</label>
                                 <select name="gender" id="gender" class="form-control" required>
                                     <option value="na">Not applicable</option>
                                     <option value="m">Male</option>
                                     <option value="f">Female</option>
                                 </select>
                                 <label for="formGroupExampleInput">KRA Pin</label>
-                                <input type="text" class="form-control mb-2" id="kraPin" placeholder="KRA Pin" required>
+                                <input type="text" class="form-control mb-2" name="kra_pin" id="kraPin" placeholder="KRA Pin" required>
                                 <label for="formGroupExampleInput">National ID.</label>
-                                <input type="text" class="form-control mb-2" id="idNo" placeholder="ID No." required>
+                                <input type="text" class="form-control mb-2" name="national_id" id="idNo" placeholder="ID No." required>
                                 <label for="formGroupExampleInput">Email</label>
-                                <input type="email" class="form-control mb-2" id="email" placeholder="e-mail" required>
+                                <input type="email" class="form-control mb-2" name="email" id="email" placeholder="e-mail" required>
                                 <label for="formGroupExampleInput">Basic Salary</label>
-                                <input type="number" class="form-control mb-2" id="basicSalary"
+                                <input type="number" class="form-control mb-2" name="basic_salary" id="basicSalary"
                                        placeholder="Basic Salary"
                                        required>
                                 <label for="formGroupExampleInput">Benefits</label>
-                                <input type="number" class="form-control mb-2" id="benefits" placeholder="Benefits"
+                                <input type="number" class="form-control mb-2" name="benefits" id="benefits" placeholder="Benefits"
                                        required>
                                 <label for="department">Department</label>
                                 <select name="department" id="department" class="form-control mb-2" required>
@@ -83,7 +83,7 @@
                                         <option value="{{ department.id }}">{{ department.name }}</option>
                                     {% endfor %}
                                 </select>
-                                <input type="Submit" class="form-control btn btn-primary" id="submit">
+                                <input type="Submit" class="form-control btn btn-primary">
                             </div>
                         </form>
                     </div>
@@ -110,7 +110,6 @@
             {% endfor %}
             </tbody>
         </table>
-
 
     </div>
 {% endblock %}

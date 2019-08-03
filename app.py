@@ -32,16 +32,8 @@ def index():
 @app.route('/employees/<int:dept_id>')
 def employees(dept_id):
     departments = DepartmentModel.fetch_all()
-    employee_name = request.form['name']
-    gender = request.form['gender']
-    kra_pin = request.form['kra_pin']
-    national_id = request.form['national_id']
-    email = request.form['email']
-    basic_salary = request.form['basic_salary']
-    benefits = request.form['benefits']
-    dept_id = request.form['department']
-    return render_template('employees.html', departments=departments)
-
+    employees = EmployeeModel.fetch_by_department(dept_id)
+    return render_template('employees.html', departments=departments, employees=employees)
 
 @app.route('/new_department', methods=['POST'])
 def new_department():
@@ -50,16 +42,28 @@ def new_department():
         # read more on bootstrap alerts with flash
         flash('Department ' + department_name + ', already exists', 'danger')
         return redirect(url_for('index'))
-    department =DepartmentModel(name=department_name)
+    department = DepartmentModel(name=department_name)
     department.insert_to_db()
     flash('Department ' + department_name + ' has been added', 'success')
-
     return redirect(url_for('index'))
-
 
 @app.route('/new_employee', methods=['POST'])
 def new_employee():
-    pass
+    employee_name = request.form['name']
+    gender = request.form['gender']
+    kra_pin = request.form['kra_pin']
+    national_id = request.form['national_id']
+    email = request.form['email']
+    basic_salary = request.form['basic_salary']
+    benefits = request.form['benefits']
+    dept_id = request.form['department']
+    if EmployeeModel.fetch_by_mail(email):
+        flash('Employee with the above details already exists', 'danger')
+        return redirect(url_for('index'))
+    employee = EmployeeModel(full_name = employee_name, gender = gender, kra_pin = kra_pin, email = email, national_id = national_id, basic_salary = basic_salary, benefits = benefits, department_id = dept_id)
+    employee.insert_to_db()
+    flash('Employee ' + employee_name + ' has been added', 'success')
+    return redirect(url_for('index'))
 
 # Run flask app
 # if __name__ == '__main__':

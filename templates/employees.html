@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block body %}
     <div class="container">
+        {% include 'includes/_messages.html' %}
         <!-- Button trigger modal For New Employee -->
         <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newEmployee">
             Add New Employee
@@ -18,7 +19,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="/add_employee" method="POST" enctype="multipart/form-data">
+                        <form action="/new_employee" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="formGroupExampleInput">Employee Name</label>
                                 <input type="text" class="form-control mb-2" name="name" id="departmentName"
@@ -63,6 +64,42 @@
             </div>
         </div>
 
+        <h6> </h6>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Employee Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Email</th>
+                <th scope="col">KRA Pin</th>
+                <th scope="col">National ID</th>
+                <th scope="col">Basic Salary</th>
+                <th scope="col">Benefits</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for employee in employees %}
+                <tr>
+                    <th scope="row">{{ employee.id }}</th>
+                    <td>{{ employee.full_name }}</td>
+                    {% if  employee.gender  == 'm' %}
+                        <td>Male</td>
+                    {% elif  employee.gender == 'f' %}
+                        <td>Female</td>
+                    {% else %}
+                        <td>Not Applicable</td>
+                    {% endif %}
+                    <td>{{ employee.email }}</td>
+                    <td>{{ employee.kra_pin }}</td>
+                    <td>{{ employee.national_id }}</td>
+                    <td>{{ employee.basic_salary }}</td>
+                    <td>{{ employee.benefits }}</td>
+                    <td><a class="btn btn-primary" href="/employee/{{ employee.id }}">View Pay Slip</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
     </div>
 {% endblock %}
