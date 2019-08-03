@@ -24,7 +24,6 @@ def create_tables():
 
 # registering a route / routing
 @app.route('/', methods=['GET'])
-# function to run when clients visit this route
 def index():
     departments = DepartmentModel.fetch_all()
     return render_template('index.html', departments=departments)
