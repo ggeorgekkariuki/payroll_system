@@ -14,7 +14,7 @@ class Testing(Config): # Staging
     DEBUG = False
 
 class Production(Config):
-    SQLALCHEMY_DATABASE_URI = ''  # dbtype://user:password@host:port/dab_name
+    SQLALCHEMY_DATABASE_URI = 'postgres://hikrnkqcvqgymz:78a1ed0cacb382c504f1e3c204084d2b45a6ccec1d8fe0153ff122ef7c876e41@ec2-75-101-131-79.compute-1.amazonaws.com:5432/dcndq7vpb5rtae'  # dbtype://user:password@host:port/dab_name
     DEBUG = False
     ENVIRONMENT = 'Production'
 
