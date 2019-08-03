@@ -1,7 +1,7 @@
 # importing Flask class
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from config import Development, Production
+from config import *
 
 
 # instantiating class Flask
@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 # config parameter that shows where our database lives
 #app.config.from_object(Development)
-app.config.from_object('Production')
+app.config.from_object(Production)
 
 #initialise SQLAlchemy app
 db = SQLAlchemy(app)
