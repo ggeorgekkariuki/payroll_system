@@ -23,7 +23,7 @@ def create_tables():
     db.create_all()
 
 # registering a route / routing
-@app.route('/')
+@app.route('/', methods=['GET'])
 # function to run when clients visit this route
 def index():
     departments = DepartmentModel.fetch_all()
