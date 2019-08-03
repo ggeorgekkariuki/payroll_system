@@ -1,5 +1,5 @@
-# importing SQLAlchemy object from the main file(mainmain.py)
-from main import db
+# importing SQLAlchemy object from the main file(app.py)
+from app import db
 
 class DepartmentModel(db.Model):
     __tablename__ = 'departments'
