@@ -7,10 +7,12 @@ class Development(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:kitgiana@127.0.0.1:5432/july_payroll'  # dbtype://user:password@host:port/dab_name
     ENVIRONMENT = 'Development'
     SECRET_KEY = 'kmkldcc898f7cnck09fmiackm09'
-
     DEBUG = True
 
 class Testing(Config): # Staging
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:kitgiana@127.0.0.1:5432/july_payroll'  # dbtype://user:password@host:port/dab_name
+    ENVIRONMENT = 'Development'
+    SECRET_KEY = 'kmkldcc898f7cnck09fmiackm09'
     DEBUG = False
 
 class Production(Config):
@@ -18,6 +20,3 @@ class Production(Config):
     DEBUG = False
     ENVIRONMENT = 'Production'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-
-

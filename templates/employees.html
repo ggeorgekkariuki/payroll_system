@@ -65,8 +65,8 @@
         </div>
 
         <h6> </h6>
-        <table class="table">
-            <thead>
+        <table class="table table-sm table-striped table-bordered table-hover">
+            <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Employee Name</th>
@@ -76,6 +76,7 @@
                 <th scope="col">National ID</th>
                 <th scope="col">Basic Salary</th>
                 <th scope="col">Benefits</th>
+                <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -95,11 +96,44 @@
                     <td>{{ employee.national_id }}</td>
                     <td>{{ employee.basic_salary }}</td>
                     <td>{{ employee.benefits }}</td>
-                    <td><a class="btn btn-primary" href="/employee/{{ employee.id }}">View Pay Slip</a></td>
+                    <td>
+                        <a class="btn btn-primary" href="/employee/{{ employee.id }}">View Pay Slip</a>
+                        <a class="btn btn-success" href="/edit/{{ employee.id }}">Edit</a>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteEmployee">Delete</button>
+
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+
+
+            <!-- Modal For Deleting Department -->
+        <div class="modal fade" id="deleteEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Employee</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-body text-danger">
+                                <p class="card-text">Are you sure you want to delete this employee?</p>
+                                <p class="card-text">Deleting this employee will result in deleting all employee data.</p>
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close</button>
+                                <a class="btn btn-danger" href="#">Delete</a><!--/employee/delete/ employee.id }} -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 {% endblock %}

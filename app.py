@@ -8,9 +8,9 @@ from config import *
 app = Flask(__name__)
 
 # config parameter that shows where our database lives
-#app.config.from_object(Development)
-#
-app.config.from_object(Production)
+app.config.from_object(Development)
+#app.config.from_object(Testing)
+#app.config.from_object(Production)
 
 #initialise SQLAlchemy app
 db = SQLAlchemy(app)
@@ -65,6 +65,23 @@ def new_employee():
     flash('Employee ' + employee_name + ' has been added', 'success')
     return redirect(url_for('index'))
 
+@app.route('/department/edit/<int:dept_id>')
+def edit_department(dept_id):
+    pass
+
+@app.route('/employee/edit/<int:emp_id>')
+def edit_employee(emp_id):
+    pass
+
+@app.route('/department/delete/<int:dept_id>')
+def delete_department(dept_id):
+    pass
+
+@app.route('/employee/edit/<int:emp_id>')
+def delete_employee(emp_id):
+    pass
+
+
 # Run flask app
-# if __name__ == '__main__':
-#      app.run()
+if __name__ == '__main__':
+    app.run()
