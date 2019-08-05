@@ -15,7 +15,7 @@ class EmployeeModel(db.Model):
     # Defining the Foreign Key for the departments Table
     department_id = db.Column(db.Integer, db.ForeignKey('departments'
                                                         '.id'), nullable=False)
-    department = db.relationship('DepartmentModel', backref=db.backref("employees", single_parent=True, lazy=True))
+    department = db.relationship('DepartmentModel', backref=db.backref("employees", single_parent=True, lazy=True)) # pseudocolumn for departments
 
     def insert_to_db(self): #create
         db.session.add(self)
