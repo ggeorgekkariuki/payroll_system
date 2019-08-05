@@ -13,7 +13,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add New Employee</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Employee for this Department</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -48,13 +48,7 @@
                                 <input type="number" class="form-control mb-2" name="benefits" id="benefits"
                                        placeholder="Benefits"
                                        required>
-                                <label for="department">Department</label>
-                                <select name="department" id="department" class="form-control mb-2" required>
-                                    {% for department in departments %}
-                                        <option value="{{ department.id }}">{{ department.name }}</option>
-                                    {% endfor %}
-                                </select>
-
+                                    <input name="department"  type="hidden" value={{ this_dept }}>
                                 <input type="Submit" class="form-control btn btn-primary" id="submit">
                             </div>
                         </form>
@@ -97,7 +91,7 @@
                     <td>{{ employee.basic_salary }}</td>
                     <td>{{ employee.benefits }}</td>
                     <td>
-                        <a class="btn btn-primary" href="/employee/{{ employee.id }}">View Pay Slip</a>
+                        <a class="btn btn-primary" href="/payroll/{{ employee.id }}">View Pay Slip</a>
                         <a class="btn btn-success" href="/edit/{{ employee.id }}">Edit</a>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#deleteEmployee">Delete</button>
 

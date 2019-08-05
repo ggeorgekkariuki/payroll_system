@@ -8,8 +8,8 @@ from config import *
 app = Flask(__name__)
 
 # config parameter that shows where our database lives
-#app.config.from_object(Development)
-app.config.from_object(Production)
+app.config.from_object(Development)
+#app.config.from_object(Production)
 #app.config.from_object(Testing)
 
 
@@ -34,7 +34,14 @@ def index():
 def employees(dept_id):
     departments = DepartmentModel.fetch_all()
     employees = EmployeeModel.fetch_by_department(dept_id)
-    return render_template('employees.html', departments=departments, employees=employees)
+    this_dept = dept_id
+    return render_template('employees.html', departments=departments, employees=employees, this_dept=this_dept)
+
+@app.route('/payroll/<int:emp_id>')
+def payrolls(emp_id):
+    departments = DepartmentModel.fetch_all()
+    employees = EmployeeModel.fetch_by_department(emp_id)
+    return render_template('payrolls.html', departments=departments, employees=employees)
 
 @app.route('/new_department', methods=['POST'])
 def new_department():
