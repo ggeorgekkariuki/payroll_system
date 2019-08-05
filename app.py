@@ -8,9 +8,9 @@ from config import *
 app = Flask(__name__)
 
 # config parameter that shows where our database lives
-app.config.from_object(Development)
+#app.config.from_object(Development)
 #app.config.from_object(Testing)
-#app.config.from_object(Production)
+app.config.from_object(Production)
 
 #initialise SQLAlchemy app
 db = SQLAlchemy(app)
