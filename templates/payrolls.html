@@ -44,7 +44,48 @@
             </div>
         </div>
 
-
+        <table class="table table-sm table-striped table-bordered table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Month</th>
+                <th scope="col">Overtime</th>
+                <th scope="col">Loan Deductions</th>
+                <th scope="col">Salary Advance</th>
+                <th scope="col">Gross Salary</th>
+                <th scope="col">NSSF</th>
+                <th scope="col">Taxable Income</th>
+                <th scope="col">PAYE</th>
+                <th scope="col">Personal Relief</th>
+                <th scope="col">Tax Net off Relief</th>
+                <th scope="col">NHIF</th>
+                <th scope="col">Net Salary</th>
+                <th scope="col">Take Home Pay</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for payslip in payslips %}
+                <tr>
+                    <th scope="row">{{ payslip.id }}</th>
+                    <td>{{ payslip.full_name }}</td>
+                    <td>{{ payslip.month}}</td>
+                    <td>{{ payslip.overtime }}</td>
+                    <td>{{ payslip.loan_deductions }}</td>
+                    <td>{{ payslip.salary_advance }}</td>
+                    <td>{{ payslip.gross_salary }}</td>
+                    <td>{{ payslip.NSSF }}</td>
+                    <td>{{ payslip.taxable_income }}</td>
+                    <td>{{ payslip.PAYE }}</td>
+                    <td>{{ payslip.personal_relief }}</td>
+                    <td>{{ payslip.tax_net_off_relief }}</td>
+                    <td>{{ payslip.NHIF }}</td>
+                    <td>{{ payslip.net_salary }}</td>
+                    <td>{{ payslip.take_home_pay }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
     </div>
 {% endblock %}

@@ -40,7 +40,8 @@ def employees(dept_id):
 @app.route('/payroll/<int:emp_id>')
 def payrolls(emp_id):
     employee = EmployeeModel.fetch_employee_by_id(emp_id)
-    return render_template('payrolls.html', employee=employee )
+    payslips = PayrollModel.fetch_by_employee(emp_id)
+    return render_template('payrolls.html', employee=employee, payslips=payslips )
 
 @app.route('/generate_payroll/<int:emp_id>', methods=['POST'])
 def generate_payroll(emp_id):
@@ -48,7 +49,11 @@ def generate_payroll(emp_id):
     payroll = Payroll(this_employee.full_name, this_employee.basic_salary, this_employee.benefits)
 
     name = payroll.name
-    gross_salary =  payroll.gross_salary
+    month = request.form['month']
+    loan = request.form['loan']
+    overtime = request.form['overtime']
+    salary_advance = request.form['salary_advance']
+    gross_salary =  payroll.gross_salary + float(overtime)
     taxable_income = payroll.taxable_income
     nssf =  round(payroll.NSSF, 2)
     paye =  round(payroll.PAYE, 2)
@@ -56,15 +61,12 @@ def generate_payroll(emp_id):
     tax_net_off_relief =  round(payroll.after_relief, 2)
     nhif =  payroll.NHIF
     net_salary =  round(payroll.net_salary, 2)
-    month = request.form['month']
-    loan = request.form['loan']
-    overtime = request.form['overtime']
-    salary_advance = request.form['salary_advance']
-    take_home_pay = net_salary - (loan + overtime + salary_advance)
+    take_home_pay = net_salary - (float(loan)  + float(salary_advance))
 
-    payslip = PayrollModel()
-
-    return redirect(url_for('payrolls'))
+    payslip = PayrollModel(full_name=name, month=month, overtime=overtime,loan_deduction=loan, salary_advance=salary_advance, gross_salary=gross_salary, NSSF=nssf, taxable_income=taxable_income, PAYE=paye, personal_relief=personal_relief, tax_net_off_relief=tax_net_off_relief, NHIF=nhif, net_salary=net_salary, take_home_pay=take_home_pay, employee_id=this_employee.id)
+    payslip.insert_to_db()
+    flash('Payslip for ' + this_employee.full_name + ' has been successfully generated', 'success')
+    return redirect(url_for('index'))
 
 @app.route('/new_department', methods=['POST'])
 def new_department():
