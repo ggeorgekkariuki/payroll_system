@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from config import *
+from resources.calculator import KRACalculator as Payroll
 
 
 # instantiating class Flask
@@ -18,6 +19,7 @@ db = SQLAlchemy(app)
 
 from models.Departments import DepartmentModel
 from models.Employees import EmployeeModel
+from models.Payrolls import PayrollModel
 
 # TODO: read about flask-migrate
 @app.before_first_request
@@ -32,16 +34,37 @@ def index():
 
 @app.route('/employees/<int:dept_id>')
 def employees(dept_id):
-    departments = DepartmentModel.fetch_all()
-    employees = EmployeeModel.fetch_by_department(dept_id)
-    this_dept = dept_id
-    return render_template('employees.html', departments=departments, employees=employees, this_dept=this_dept)
+    this_department = DepartmentModel.fetch_by_department(dept_id)
+    return render_template('employees.html', this_department=this_department)
 
 @app.route('/payroll/<int:emp_id>')
 def payrolls(emp_id):
-    departments = DepartmentModel.fetch_all()
-    employees = EmployeeModel.fetch_by_department(emp_id)
-    return render_template('payrolls.html', departments=departments, employees=employees)
+    employee = EmployeeModel.fetch_employee_by_id(emp_id)
+    return render_template('payrolls.html', employee=employee )
+
+@app.route('/generate_payroll/<int:emp_id>', methods=['POST'])
+def generate_payroll(emp_id):
+    this_employee = EmployeeModel.fetch_employee_by_id(emp_id)
+    payroll = Payroll(this_employee.full_name, this_employee.basic_salary, this_employee.benefits)
+
+    name = payroll.name
+    gross_salary =  payroll.gross_salary
+    taxable_income = payroll.taxable_income
+    nssf =  round(payroll.NSSF, 2)
+    paye =  round(payroll.PAYE, 2)
+    personal_relief = payroll.personal_relief
+    tax_net_off_relief =  round(payroll.after_relief, 2)
+    nhif =  payroll.NHIF
+    net_salary =  round(payroll.net_salary, 2)
+    month = request.form['month']
+    loan = request.form['loan']
+    overtime = request.form['overtime']
+    salary_advance = request.form['salary_advance']
+    take_home_pay = net_salary - (loan + overtime + salary_advance)
+
+    payslip = PayrollModel()
+
+    return redirect(url_for('payrolls'))
 
 @app.route('/new_department', methods=['POST'])
 def new_department():

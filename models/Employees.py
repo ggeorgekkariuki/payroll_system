@@ -26,6 +26,10 @@ class EmployeeModel(db.Model):
         return cls.query.filter_by(email=email).first()
 
     @classmethod
+    def fetch_employee_by_id(cls, emp_id):
+        return cls.query.filter_by(id=emp_id).first()
+
+    @classmethod
     def fetch_all(cls):
         return cls.query.all()
 

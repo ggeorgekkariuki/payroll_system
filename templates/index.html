@@ -112,8 +112,7 @@
                     <td>{{ department.name }}</td>
                     <td>
                         <a class="btn btn-primary" href="/employees/{{ department.id }}">View Employees</a>
-                        <a class="btn btn-success" href="/edit/{{ department.id }}">Edit</a>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteDepartment">Delete</button>
+
                     </td>
                 </tr>
             {% endfor %}
@@ -149,3 +148,7 @@
 
     </div>
 {% endblock %}
+
+
+<a class="btn btn-success" href="/edit/{{ department.id }}">Edit</a>
+<button class="btn btn-danger" data-toggle="modal" data-target="#deleteDepartment">Delete</button>
