@@ -119,11 +119,10 @@
                                             <div class="form-group">
                                                 <label for="formGroupExampleInput">Employee Name</label>
                                                 <input type="text" class="form-control mb-2" name="name"
-                                                       id="fullName" placeholder="Name" value={{ employee.full_name }}
-                                                               required>
+                                                       id="fullName" placeholder="Name" value="{{ employee.full_name }}" required>
                                                 <label for="formGroupExampleInput">Gender</label>
                                                 <select name="gender" id="gender" class="form-control" required>
-                                                    <option value=0 selected>Leave as it is</option>
+                                                    <option value="0" selected>Leave as it is</option>
                                                     <option value="na">Not applicable</option>
                                                     <option value="m">Male</option>
                                                     <option value="f">Female</option>
