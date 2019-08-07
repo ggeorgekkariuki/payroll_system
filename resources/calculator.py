@@ -2,6 +2,7 @@ class KRACalculator:
     name = ''
     basic_salary = 0
     benefits = 0
+    overtime = 0
     gross_salary = 0
     NSSF = 0
     taxable_income = 0
@@ -12,10 +13,11 @@ class KRACalculator:
     NHIF = 0
     net_salary = 0
 
-    def __init__(self,name,bs,benefits):
+    def __init__(self,name,bs,benefits,overtime):
         KRACalculator.name = name
         KRACalculator.basic_salary = bs
         KRACalculator.benefits = benefits
+        KRACalculator.overtime = overtime
         KRACalculator.gross_salary_calc(self)
         KRACalculator.nssf_deductions(self)
         KRACalculator.taxable_income_calc(self)
@@ -26,7 +28,7 @@ class KRACalculator:
         KRACalculator.net_salary_calc(self)
 
     def gross_salary_calc(self):
-        self.gross_salary = self.basic_salary + self.benefits
+        self.gross_salary = self.basic_salary + self.benefits + self.overtime
 
     def nssf_deductions(self):
         if self.gross_salary > 0:

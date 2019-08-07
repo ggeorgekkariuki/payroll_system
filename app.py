@@ -9,8 +9,8 @@ from resources.calculator import KRACalculator as Payroll
 app = Flask(__name__)
 
 # config parameter that shows where our database lives
-#app.config.from_object(Development)
-app.config.from_object(Production)
+app.config.from_object(Development)
+#app.config.from_object(Production)
 #app.config.from_object(Testing)
 
 
@@ -46,14 +46,15 @@ def payrolls(emp_id):
 @app.route('/generate_payroll/<int:emp_id>', methods=['POST'])
 def generate_payroll(emp_id):
     this_employee = EmployeeModel.fetch_employee_by_id(emp_id)
-    payroll = Payroll(this_employee.full_name, this_employee.basic_salary, this_employee.benefits)
+    overtime = request.form['overtime']
+
+    payroll = Payroll(this_employee.full_name, this_employee.basic_salary, this_employee.benefits, float(overtime))
 
     name = payroll.name
     month = request.form['month']
     loan = request.form['loan']
-    overtime = request.form['overtime']
     salary_advance = request.form['salary_advance']
-    gross_salary =  payroll.gross_salary + float(overtime)
+    gross_salary =  payroll.gross_salary
     taxable_income = payroll.taxable_income
     nssf =  round(payroll.NSSF, 2)
     paye =  round(payroll.PAYE, 2)
