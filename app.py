@@ -35,7 +35,8 @@ def index():
 @app.route('/employees/<int:dept_id>')
 def employees(dept_id):
     this_department = DepartmentModel.fetch_by_department(dept_id)
-    return render_template('employees.html', this_department=this_department)
+    departments = DepartmentModel.fetch_all()
+    return render_template('employees.html', this_department=this_department, departments=departments)
 
 @app.route('/payroll/<int:emp_id>')
 def payrolls(emp_id):
@@ -103,17 +104,40 @@ def new_employee():
 def edit_department(dept_id):
     pass
 
-@app.route('/employee/edit/<int:emp_id>')
+@app.route('/edit_employee/<int:emp_id>', methods=['POST'])
 def edit_employee(emp_id):
-    pass
 
-@app.route('/department/delete/<int:dept_id>')
-def delete_department(dept_id):
-    pass
 
-@app.route('/employee/edit/<int:emp_id>')
+    employee_name = request.form['name']
+    gender = request.form['gender']
+    kra_pin = request.form['kra_pin']
+    national_id = request.form['national_id']
+    email = request.form['email']
+    basic_salary = request.form['basic_salary']
+    benefits = request.form['benefits']
+    dept_id = int(request.form['department'])
+
+    if gender == '0':
+        gender = None
+    if dept_id == 0:
+        dept_id = None
+
+    EmployeeModel.update_employee(id=emp_id, full_name=employee_name, gender=gender, kra_pin=kra_pin, email=email, national_id=national_id, basic_salary=basic_salary, benefits=benefits, department_id=dept_id)
+    flash('Employee ' + employee_name + ' has been updated', 'success')
+
+    this_emp = EmployeeModel.fetch_employee_by_id(emp_id)
+    this_dept = this_emp.department
+    return redirect(url_for('employees', dept_id=this_dept.id))
+
+@app.route('/delete_employee/<int:emp_id>')
 def delete_employee(emp_id):
-    pass
+    this_emp = EmployeeModel.fetch_employee_by_id(emp_id)
+    this_dept = this_emp.department
+
+    EmployeeModel.delete_by_id(emp_id)
+    flash('Employee has been deleted', 'success')
+    return redirect(url_for('employees', dept_id=this_dept.id))
+
 
 
 # Run flask app

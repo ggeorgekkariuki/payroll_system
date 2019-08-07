@@ -36,3 +36,34 @@ class EmployeeModel(db.Model):
     @classmethod
     def fetch_by_department(cls, dept_id):
         return cls.query.filter_by(department_id=dept_id)
+
+
+    @classmethod #TODO: read on keyword functions & default functions
+    def update_employee(cls, id, full_name=None, gender=None, kra_pin=None, email=None, national_id=None, basic_salary=None, benefits=None, department_id=None): #update
+        record = cls.fetch_employee_by_id(id)
+        if full_name:
+            record.full_name = full_name
+        if gender:
+            record.gender = gender
+        if kra_pin:
+            record.kra_pin =kra_pin
+        if email:
+            record.email =email
+        if national_id:
+            record.national_id = national_id
+        if basic_salary:
+            record.basic_salary = basic_salary
+        if benefits:
+            record.benefits = benefits
+        if department_id:
+            record.department_id = department_id
+
+        db.session.commit()
+        return True
+
+    @classmethod
+    def delete_by_id(cls, id):
+        record = cls.query.filter_by(id=id)
+        record.delete()
+        db.session.commit()
+        return True

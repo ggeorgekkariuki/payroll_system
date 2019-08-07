@@ -48,7 +48,7 @@
                                 <input type="number" class="form-control mb-2" name="benefits" id="benefits"
                                        placeholder="Benefits"
                                        required>
-                                    <input name="department"  type="hidden" value={{ this_department.id }}>
+                                <input name="department" type="hidden" value={{ this_department.id }}>
                                 <input type="Submit" class="form-control btn btn-primary" id="submit">
                             </div>
                         </form>
@@ -58,7 +58,7 @@
             </div>
         </div>
 
-        <h6> </h6>
+        <h6></h6>
         <table class="table table-sm table-striped table-bordered table-hover">
             <thead class="thead-dark">
             <tr>
@@ -71,6 +71,9 @@
                 <th scope="col">Basic Salary</th>
                 <th scope="col">Benefits</th>
                 <th scope="col">Action</th>
+                <th scope="col"></th>
+                <th scope="col">...</th>
+
             </tr>
             </thead>
             <tbody>
@@ -80,7 +83,7 @@
                     <td>{{ employee.full_name }}</td>
                     {% if  employee.gender  == 'm' %}
                         <td>Male</td>
-                    {% elif  employee.gender == 'f' %}
+                    {% elif employee.gender == 'f' %}
                         <td>Female</td>
                     {% else %}
                         <td>Not Applicable</td>
@@ -91,13 +94,128 @@
                     <td>{{ employee.basic_salary }}</td>
                     <td>{{ employee.benefits }}</td>
                     <td>
+                        <!-- Button trigger modal For Edit Employee -->
+                        <button type="button" class="btn btn-primary mb-3" data-toggle="modal"
+                                data-target="#editEmployee{{ employee.id }}">
+                            Edit
+                        </button>
+
+                        <!-- Modal For Edit Employee -->
+                        <div class="modal fade" id="editEmployee{{ employee.id }}" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit
+                                            <i>{{ employee.full_name }}</i></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/edit_employee/{{ employee.id }}" method="POST"
+                                              enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <label for="formGroupExampleInput">Employee Name</label>
+                                                <input type="text" class="form-control mb-2" name="name"
+                                                       id="fullName" placeholder="Name" value={{ employee.full_name }}
+                                                               required>
+                                                <label for="formGroupExampleInput">Gender</label>
+                                                <select name="gender" id="gender" class="form-control" required>
+                                                    <option value=0 selected>Leave as it is</option>
+                                                    <option value="na">Not applicable</option>
+                                                    <option value="m">Male</option>
+                                                    <option value="f">Female</option>
+                                                </select>
+                                                <label for="formGroupExampleInput">KRA Pin</label>
+                                                <input type="text" class="form-control mb-2" name="kra_pin" id="kraPin"
+                                                       placeholder="KRA Pin" value={{ employee.kra_pin }} required>
+                                                <label for="formGroupExampleInput">National ID.</label>
+                                                <input type="text" class="form-control mb-2" name="national_id"
+                                                       id="idNo" placeholder="ID No."
+                                                       value={{ employee.national_id }} required>
+                                                <label for="formGroupExampleInput">Email</label>
+                                                <input type="email" class="form-control mb-2" name="email" id="email"
+                                                       placeholder="e-mail" value={{ employee.email }} required>
+                                                <label for="formGroupExampleInput">Basic Salary</label>
+                                                <input type="number" class="form-control mb-2" name="basic_salary"
+                                                       id="basicSalary" placeholder="Basic Salary"
+                                                       value={{ employee.basic_salary }}
+                                                               required>
+                                                <label for="formGroupExampleInput">Benefits</label>
+                                                <input type="number" class="form-control mb-2" name="benefits"
+                                                       id="benefits" placeholder="Benefits"
+                                                       value={{ employee.benefits }}
+                                                               required>
+                                                <label for="department">Department</label>
+                                                <select name="department" id="department" class="form-control mb-2"
+                                                        required>
+                                                    <option value=0 selected>Leave as it is</option>
+                                                    {% for department in departments %}
+                                                        <option value="{{ department.id }}">{{ department.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+
+                                                <input type="Submit" class="form-control btn btn-primary" id="submit">
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                    <td>
+                        <!-- Button trigger modal For Edit Employee -->
+                        <button type="button" class="btn btn-danger mb-3" data-toggle="modal"
+                                data-target="#deleteEmployee{{ employee.id }}">
+                            Delete
+                        </button>
+
+                        <!-- Modal For Deleting Department -->
+                        <div class="modal fade" id="deleteEmployee{{ employee.id }}" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete Department</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card">
+                                            <div class="card-body text-danger">
+                                                <p class="card-text">Are you sure you want to delete this
+                                                    department?</p>
+                                                <p class="card-text">Deleting this department will result in deleting
+                                                    all employee data under this department</p>
+                                            </div>
+                                            <div class="card-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                                        aria-label="Close">Close
+                                                </button>
+                                                <a class="btn btn-danger" href="/delete_employee/{{ employee.id }}">Delete</a>
+                                                <!--/department/delete/ department.id }} -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </td>
+                    <td>
                         <a class="btn btn-primary" href="/payroll/{{ employee.id }}">View Pay Slip</a>
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-
 
 
     </div>

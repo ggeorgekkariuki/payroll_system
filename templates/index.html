@@ -88,7 +88,7 @@
                                         <option value="{{ department.id }}">{{ department.name }}</option>
                                     {% endfor %}
                                 </select>
-                                <input type="Submit" class="form-control btn btn-primary">
+                                <input type="Submit" class="form-control btn btn-outline-primary">
                             </div>
                         </form>
                     </div>
@@ -149,6 +149,3 @@
     </div>
 {% endblock %}
 
-
-<a class="btn btn-success" href="/edit/{{ department.id }}">Edit</a>
-<button class="btn btn-danger" data-toggle="modal" data-target="#deleteDepartment">Delete</button>
