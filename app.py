@@ -49,7 +49,6 @@ def index():
     pie_chart.add('Female', female)
     pie_chart.add('Others', others)
     pie_graph = pie_chart.render_data_uri()
-    # print(graph)
 
     line_chart = pygal.Bar()
     line_chart.title = 'Salary cost per department'
@@ -137,7 +136,6 @@ def edit_department(dept_id):
 
 @app.route('/edit_employee/<int:emp_id>', methods=['POST'])
 def edit_employee(emp_id):
-
 
     employee_name = request.form['name']
     gender = request.form['gender']
