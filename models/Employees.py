@@ -15,7 +15,7 @@ class EmployeeModel(db.Model):
     # Defining the Foreign Key for the departments Table
     department_id = db.Column(db.Integer, db.ForeignKey('departments'
                                                         '.id'), nullable=False)
-    department = db.relationship('DepartmentModel', backref=db.backref("employees", single_parent=True, lazy=True)) # pseudocolumn for departments
+    department = db.relationship('DepartmentModel', backref=db.backref("employees", single_parent=True, lazy=True, cascade='all,delete')) # pseudocolumn for departments
 
     def insert_to_db(self): #create
         db.session.add(self)
@@ -36,7 +36,6 @@ class EmployeeModel(db.Model):
     @classmethod
     def fetch_by_department(cls, dept_id):
         return cls.query.filter_by(department_id=dept_id)
-
 
     @classmethod #TODO: read on keyword functions & default functions
     def update_employee(cls, id, full_name=None, gender=None, kra_pin=None, email=None, national_id=None, basic_salary=None, benefits=None, department_id=None): #update
