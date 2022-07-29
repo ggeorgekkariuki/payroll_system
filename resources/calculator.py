@@ -7,7 +7,7 @@ class KRACalculator:
     NSSF = 0
     taxable_income = 0
     PAYE = 0 #Tax payable
-    personal_relief = 1408.00
+    personal_relief = 2400.00
     after_relief = 0
     chargeable_income = 0 # Before NHIF deduction
     NHIF = 0
@@ -44,16 +44,12 @@ class KRACalculator:
 
     def monthly_tax_payable(self):
         if self.gross_salary > 0:
-            if self.taxable_income < 12299:
+            if self.taxable_income < 24001:
                 self.PAYE = 10 / 100 * self.taxable_income
-            elif self.taxable_income < 23886:
-                self.PAYE = (10 / 100 * 12298) + (15 / 100 * (self.taxable_income - 12298))
-            elif self.taxable_income < 35473:
-                self.PAYE = (10 / 100 * 12298) + (15 / 100 * 11587) + (20 / 100 *(self.taxable_income - 23885))
-            elif self.taxable_income < 47060:
-                self.PAYE = (10 / 100 * 12298) + (15 / 100 * 11587) + (20 / 100 * 11587) + (25 / 100 * (self.taxable_income - 35472))
-            elif self.taxable_income >= 47060:
-                self.PAYE = (10 / 100 * 12298) + (15 / 100 * 11587) + (20 / 100 * 11587) + (25 / 100 * 11587) + (30 / 100 *(self.taxable_income - 47059))
+            elif self.taxable_income < 32334:
+                self.PAYE = (10 / 100 * 24000) + (25 / 100 * (self.taxable_income - 23999))
+            elif self.taxable_income > 32333:
+                self.PAYE = (10 / 100 * 24000) + (25 / 100 * 8333) + (30 / 100 *(self.taxable_income - 32333))
 
     def personal_relief_deductions(self):
         if self.gross_salary > 0:
